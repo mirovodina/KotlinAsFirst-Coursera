@@ -64,7 +64,7 @@
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-html-jvm</artifactId>
-            <version>${kotlinx.html.version}</version>
+            <version>0.6.11</version>
         </dependency>
     </dependencies>
     <build>
