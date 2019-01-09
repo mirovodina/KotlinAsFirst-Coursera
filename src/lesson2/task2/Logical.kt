@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson2.task2
 
 import lesson1.task1.sqr
@@ -19,6 +20,7 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  */
 fun isNumberHappy(number: Int): Boolean = TODO()
 
+
 /**
  * Простая
  *
@@ -26,8 +28,15 @@ fun isNumberHappy(number: Int): Boolean = TODO()
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
  */
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
-
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
+    val c = (y1 - y2) / (x1 - x2)
+    val b = Math.abs(c)
+    return when {
+        (x1 == x2 || y1 == y2) && (b != 1) -> true
+        b == 1 && (x1 != x2 && y1 != y2) -> true
+        else -> false
+    }
+}
 
 /**
  * Простая
@@ -35,7 +44,17 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
  * Дан номер месяца (от 1 до 12 включительно) и год (положительный).
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
-fun daysInMonth(month: Int, year: Int): Int = TODO()
+fun daysInMonth(month: Int, year: Int): Int {
+    val y = year
+    val m = month
+    val y1 = (y % 400 == 0)
+    val y2 = ((y % 4 == 0) and (y % 100 != 0))
+    return if (m == 4 || m == 6 || m == 9 || m == 11) 30
+    else if (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) 31
+    else if ((m == 2) and y1) 29
+    else if ((m == 2) and y2) 29
+    else 28
+}
 
 /**
  * Средняя
@@ -45,10 +64,20 @@ fun daysInMonth(month: Int, year: Int): Int = TODO()
  * Вернуть true, если утверждение верно
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
-                 x2: Double, y2: Double, r2: Double): Boolean = TODO()
+                 x2: Double, y2: Double, r2: Double): Boolean {
+    val a = ((sqr(x2 - x1) + sqr(y2 - y1)) <= sqr(r2))
+    val b = (sqr(x1 - x1) + sqr(y1 + r1 - y1)) <= sqr(r1)
+    return when {
+        (x1 == x2) && (y1 == y2) && (r1 < r2) -> true
+        (x1 == x2) && (y1 == y2) && (r1 == r2) -> true
+        ((x1 != x2) || (y1 != y2)) && (r1 < r2) && a && b -> true
+        else -> false
+    }
+}
+
 
 /**
- * Средняя
+ * * Средняя
  *
  * Определить, пройдет ли кирпич со сторонами а, b, c сквозь прямоугольное отверстие в стене со сторонами r и s.
  * Стороны отверстия должны быть параллельны граням кирпича.
@@ -56,4 +85,15 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean = TODO()
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
+    val x = (a <= r) || (b <= r) || (c <= r)
+    val y = (a <= s) || (b <= s) || (c <= s)
+    return when {
+        x && y -> true
+        else -> false
+    }
+}
+
+
+
+
